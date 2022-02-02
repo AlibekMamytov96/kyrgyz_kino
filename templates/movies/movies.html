@@ -269,7 +269,11 @@
                                     </div>
                                     <div class="item-info-product">
                                         <h4 class="">
-                                            <a href="moviesingle.html" class="editContent" >К звездам</a>
+
+                                            <a href="{{ movie.get_absolute_url }}" class="editContent" >
+                                                {{ movie.title }}
+                                            </a>
+
                                         </h4>
 
                                         <div class="product_price">

@@ -153,7 +153,9 @@ class MoviesView(ListView):
     # template_name = 'movies/movies.html'
 
 
+
 class MovieDetailView(DetailView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
     slug_field = "url"
+
