@@ -142,18 +142,18 @@
 
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView, DetailView
 
 from .models import *
 
 
-class MoviesView(View):
-    def get(self, request):
-        movies = Movie.objects.all()
-        print(movies)
-        return render(request, 'movies/movies.html', {'movie_list': movies})
+class MoviesView(ListView):
+    model = Movie
+    queryset = Movie.objects.filter(draft=False)
+    # template_name = 'movies/movies.html'
 
 
-class MovieDetailView(View):
-    def get(self, request, pk):
-        movie = Movie.objects.get(id=pk)
-        return render(request, 'movies/moviesingle.html', {'movie': movie})
+class MovieDetailView(DetailView):
+    model = Movie
+    queryset = Movie.objects.filter(draft=False)
+    slug_field = "url"
