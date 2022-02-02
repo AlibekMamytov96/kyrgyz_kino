@@ -149,4 +149,5 @@ from .models import *
 class MoviesView(View):
     def get(self, request):
         movies = Movie.objects.all()
+        print(movies)
         return render(request, 'movies/movies.html', {'movie_list': movies})
