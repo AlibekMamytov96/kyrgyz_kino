@@ -392,6 +392,11 @@ li > a:only-child:after {
     position: relative;
     min-height: 50em;
 }
+.bg1 {
+    background-color: rgba(0, 0, 0, 0);
+    margin-top: 0px;
+    background-image: url('../image1.jpg');
+}
 
 .main-banner.inner {
     background: url(../images/banner.jpg)no-repeat center;
