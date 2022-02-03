@@ -167,6 +167,7 @@ class MovieDetailView(GenreYear, DetailView):
     model = Movie
     slug_field = "url"
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm()
@@ -221,6 +222,7 @@ class AddStarRating(View):
             return HttpResponse(status=400)
 
 
+
 class CreateMovieView(CreateView):
     model = Movie
     template_name = 'movies/create_movie.html'
@@ -254,3 +256,4 @@ class DeleteMovieView(DeleteView):
         slug = self.object.category.slug
         self.object.delete()
         return redirect('/', slug)
+
