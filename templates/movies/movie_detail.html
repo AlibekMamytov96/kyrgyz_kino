@@ -100,6 +100,19 @@
                                 </a>
                             </li>
                         </ul>
+                        {% if request.user.is_superuser %}
+                            <div>
+                                <a href="{% url 'update_movie' movie.id %}" type="submit">
+                                     edit movie
+                                </a>
+                            </div>
+                            <div>
+                                <a href="{% url 'delete_movie' movie.id %}" type="submit">
+                                     delete movie
+                                </a>
+                            </div>
+                        {% endif %}
+
                     </div>
                     <div class="clearfix"></div>
                 </div>

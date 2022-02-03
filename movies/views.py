@@ -143,10 +143,10 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import *
-from .forms import ReviewForm, RatingForm
+from .forms import ReviewForm, RatingForm, CreateMovieForm, UpdateMovieForm
 
 
 class GenreYear:
@@ -219,3 +219,38 @@ class AddStarRating(View):
             return HttpResponse(status=201)
         else:
             return HttpResponse(status=400)
+
+
+class CreateMovieView(CreateView):
+    model = Movie
+    template_name = 'movies/create_movie.html'
+    form_class = CreateMovieForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['movie_form'] = self.get_form()
+        return context
+
+
+class UpdateMovieView(UpdateView):
+    model = Movie
+    template_name = 'movies/update_movie.html'
+    form_class = UpdateMovieForm
+    pk_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['movie_form'] = self.get_form()
+        return context
+
+
+class DeleteMovieView(DeleteView):
+    model = Movie
+    template_name = 'movies/delete_movie.html'
+    pk_url_kwarg = 'slug'
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        slug = self.object.category.slug
+        self.object.delete()
+        return redirect('/', slug)
