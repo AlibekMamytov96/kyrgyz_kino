@@ -16,7 +16,7 @@ class RegisterView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
-        return redirect('index')
-from django.shortcuts import render
+        return redirect('media')
+
 
 # Create your views here.

@@ -7,6 +7,7 @@
 
 {% block sidebar %}
     <div class="side-bar col-lg-4">
+
 {% endblock sidebar %}
 
 {% block movie %}
@@ -74,7 +75,7 @@
                                     <label for="rating{{ v }}">{{ k }}</label>
                                 {% endfor %}
                             </span>
-                            <span class="editContent">4.0</span>
+                            <span class="editContent">{{ movie_id.star }}</span>
                         </form>
                     </li>
                 </ul>
@@ -102,13 +103,14 @@
                         </ul>
                         {% if request.user.is_superuser %}
                             <div>
-                                <a href="{% url 'update_movie' movie.id %}" type="submit">
-                                     edit movie
+                                <a href="{% url 'update_movie' movie.id %}"  class="btn btn-primary" role="button">
+                                    Edit
                                 </a>
                             </div>
+                            <span></span>
                             <div>
-                                <a href="{% url 'delete_movie' movie.id %}" type="submit">
-                                     delete movie
+                                <a href="{% url 'delete_movie' movie.id %}"  class="btn btn-warning" role="button">
+                                    Delete
                                 </a>
                             </div>
                         {% endif %}
@@ -206,5 +208,11 @@
         {% endfor %}
     </div>
     </div>
+            <script>
+        function addReview(name, id) {
+            document.getElementById("contactparent").value = id;
+            document.getElementById("contactcomment").innerText = `${name}, `
+        }
+    </script>
 {% endblock movie %}
     </div>
