@@ -50,5 +50,10 @@
             <a href="moviesingle.html" class="btn" >Now</a>
         </div>-->
     </div>
+    {% if request.user.is_superuser %}
+    <div>
+        <a href="{% url 'create_movie' %}" type="submit">Add movie</a>
+    </div>
+    {% endif %}
 {% endblock movie %}
 
