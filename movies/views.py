@@ -167,6 +167,7 @@ class MovieDetailView(GenreYear, DetailView):
     model = Movie
     slug_field = "url"
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm()
@@ -219,3 +220,4 @@ class AddStarRating(View):
             return HttpResponse(status=201)
         else:
             return HttpResponse(status=400)
+
