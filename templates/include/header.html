@@ -18,13 +18,13 @@
                     <!-- First Tier Drop Down -->
                     <label for="drop-2" class="toggle">Категории <span
                             class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                    <a href="#">Категории <span class="fa fa-angle-down"
+                    <a href="#">Категории<span class="fa fa-angle-down"
                                                 aria-hidden="true"></span></a>
                     <input type="checkbox" id="drop-2">
                     <ul>
                         {% get_categories as categories %}
                         {% for category in categories %}
-                        <li><a href="#">{{ category.name }}</a></li>
+                        <li><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>

@@ -15,6 +15,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={"slug": self.id})
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
@@ -93,7 +96,6 @@ class Movie(models.Model):
 
 
 class MovieShots(models.Model):
-    """Кадры из фильма"""
     title = models.CharField("Заголовок", max_length=100)
     description = models.TextField("Описание")
     image = models.ImageField("Изображение", upload_to="movie_shots/")

@@ -1,0 +1,84 @@
+{% extends 'movies/base.html' %}
+{% load movie_tag %}
+{% block title %} {% endblock title %}
+{% block header %} bg1 {% endblock header %}
+{% block movie %}
+    <div class="left-ads-display col-lg-9">
+        <div class="row">
+            {% get_categories as categories %}
+                {% for category in categories %}
+                <div class="col-md-4 product-men">
+                    <div class="product-shoe-info editContent text-center mt-lg-4">
+                        <div class="men-thumb-item">
+                            <img src="#" class="img-fluid" alt="">
+                        </div>
+                        <div class="item-info-product">
+                            <h4 class="">
+                                <a href="{% url 'category_list' category.id %}"
+                                   class="editContent">
+                                    {{ category.name }}
+                                </a>
+                            </h4>
+
+                            <div class="product_price">
+                                <div class="grid-price">
+                                    <span class="money editContent">{{ category.description }}</span>
+                                </div>
+                            </div>
+                            <ul class="stars">
+                                <li><a href="#"><span class="fa fa-star"
+                                                      aria-hidden="true"></span></a>
+                                </li>
+                                <li><a href="#"><span class="fa fa-star"
+                                                      aria-hidden="true"></span></a>
+                                </li>
+                                <li><a href="#"><span class="fa fa-star-half-o"
+                                                      aria-hidden="true"></span></a>
+                                </li>
+                                <li><a href="#"><span class="fa fa-star-half-o"
+                                                      aria-hidden="true"></span></a>
+                                </li>
+                                <li><a href="#"><span class="fa fa-star-o"
+                                                      aria-hidden="true"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+                {% if request.user.is_superuser %}
+    <div>
+        <a href="{% url 'create_movie' %}" type="submit">Add movie</a>
+    </div>
+    {% endif %}
+        </div>
+
+        <!--<div class="grid-img-right mt-4 text-right bg bg1" >
+            <span class="money editContent" >Flat 50% Off</span>
+            <a href="moviesingle.html" class="btn" >Now</a>
+        </div>-->
+    {% if is_paginated %}
+        <nav aria-label="Page navigation example" style="display: flex; justify-content: center; align-items: center;">
+        <ul class="pagination">
+          {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'media' %}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+          {% endif %}
+        <li class="page-item"><a class="page-link" href="#">{{ page_obj.number }}</a></li>
+          {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="{% url 'media' %}?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+          {% endif %}
+        </ul>
+        </nav>
+    {% endif %}
+    </div>
+{% endblock %}
+
+

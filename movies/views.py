@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -33,6 +33,26 @@ class MovieDetailView(GenreYear, DetailView):
         context = super().get_context_data(**kwargs)
         context["star_form"] = RatingForm()
         return context
+
+
+class CategoryView(GenreYear, ListView):
+    model = Category
+    # queryset = Movie.objects.get(category_id=id)
+    template_name = 'movies/category_list.html'
+    paginate_by = 1
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        slug = context['category_list']
+        movie = slug.values('movie')
+        movie = Movie.objects.filter(id=movie)
+        return ({'movies': movie})
+
+
+class CategoryDetailView(GenreYear, DetailView):
+    model = Category
+    template_name = 'movies/category_detail.html'
+    slug_field = 'url'
 
 
 class AddReview(View):
