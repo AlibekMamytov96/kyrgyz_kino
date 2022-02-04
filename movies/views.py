@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
-from cart.cart import CART_MAGIC
+# from cart.cart import CART_MAGIC
 
 from .models import *
 from .forms import ReviewForm, RatingForm, CreateMovieForm, UpdateMovieForm
@@ -22,7 +22,7 @@ class MoviesView(GenreYear, ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
     # template_name = 'movies/movies.html'
-    paginate_by = 1
+    paginate_by = 2
 
 
 class MovieDetailView(GenreYear, DetailView):
@@ -39,7 +39,7 @@ class CategoryView(GenreYear, ListView):
     model = Category
     # queryset = Movie.objects.get(category_id=id)
     template_name = 'movies/category_list.html'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
