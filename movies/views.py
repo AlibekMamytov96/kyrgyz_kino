@@ -49,24 +49,7 @@ class CategoryView(GenreYear, ListView):
         print(queryset)
         print(id)
         return queryset
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data()
-    #     print(context)
-    #     # print(self, 'asdasd')
-    #     # print(self.request.POST)
-    #     id = self.kwargs.get('id')
-    #     print(id)
-    #     # print(slug)
-    #     # movie = slug.values('movie')
-    #     # print(movie)
-    #     # print(movie, 'asddddddddd')
-    #     # print(self.request.GET, 'ASDASDASDD')
-    #     # id = self.request.POST.get('id')
-    #     # print(id)
-    #     movie = Movie.objects.filter(id=id)
-    #     print(movie)
-    #     return ({'movies': movie})
+
 
 
 class CategoryDetailView(GenreYear, DetailView):
