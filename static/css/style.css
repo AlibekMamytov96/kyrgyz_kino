@@ -407,6 +407,12 @@ li > a:only-child:after {
     background-color: rgba(0, 0, 0, 0);
     margin-top: 0;
     background-image: url('../soviet_movie.jpg');
+<<<<<<< HEAD
+=======
+    width:auto;
+    height: 500px;
+
+>>>>>>> 50237eeed54cc94173da31ba8dee36d8230aaf3a
 }
 
 /*-- place holder --*/
