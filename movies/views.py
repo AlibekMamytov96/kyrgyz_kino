@@ -4,7 +4,13 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
-# from cart.cart import CART_MAGIC
+
+
+
+from cart.cart import Cart
+
+
+
 
 from .models import *
 from .forms import ReviewForm, RatingForm, CreateMovieForm, UpdateMovieForm
@@ -22,7 +28,7 @@ class MoviesView(GenreYear, ListView):
     model = Movie
     queryset = Movie.objects.filter(draft=False)
     # template_name = 'movies/movies.html'
-    paginate_by = 1
+    paginate_by = 2
 
 
 class MovieDetailView(GenreYear, DetailView):
@@ -39,7 +45,7 @@ class CategoryView(GenreYear, ListView):
     model = Category
     # queryset = Movie.objects.get(category_id=id)
     template_name = 'movies/category_list.html'
-    paginate_by = 1
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
@@ -151,46 +157,47 @@ class SearchMovieView(ListView):
         context["results"] = f'q={self.request.GET.get("q")}&'
         return context
 
-#
-# @login_required()
-# def cart_add(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.add(product=movie)
-#     return redirect("media")
-#
-#
-# @login_required()
-# def item_clear(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.remove(movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def item_increment(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.add(product=movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def item_decrement(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.decrement(product=movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def cart_clear(request):
-#     cart = Cart(request)
-#     cart.clear()
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def cart_detail(request):
-#     return render(request, 'cart/cart_detail.html')
+
+@login_required()
+def cart_add(request, id):
+    cart = Cart(request)
+    movie = Movie.objects.get(id=id)
+    cart.add(product=movie)
+    Cart.cart[movie.id] = {'name': movie.title}
+    return redirect("media")
+
+
+@login_required()
+def item_clear(request, id):
+    cart = Cart(request)
+    movie = Movie.objects.get(id=id)
+    cart.remove(movie)
+    return redirect("cart_detail")
+
+
+@login_required()
+def item_increment(request, id):
+    cart = Cart(request)
+    movie = Movie.objects.get(id=id)
+    cart.add(product=movie)
+    return redirect("cart_detail")
+
+
+@login_required()
+def item_decrement(request, id):
+    cart = Cart(request)
+    movie = Movie.objects.get(id=id)
+    cart.decrement(product=movie)
+    return redirect("cart_detail")
+
+
+@login_required()
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+
+@login_required()
+def cart_detail(request):
+    return render(request, 'cart/cart_detail.html')

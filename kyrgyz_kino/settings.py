@@ -74,6 +74,7 @@ TEMPLATES = [
     },
 ]
 
+CART_SESSION_ID = 'cart'
 WSGI_APPLICATION = 'kyrgyz_kino.wsgi.application'
 
 

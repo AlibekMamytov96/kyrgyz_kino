@@ -5,7 +5,7 @@
         <!-- nav -->
         <nav class="py-4">
             <div id="logo">
-                <h1><a href="index.html" class="editContent"
+                <h1><a href="{% url 'media' %}" class="editContent"
                        style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: Source Sans Pro;, sans-serif;">Kyrgyz Movie</a>
                 </h1>
             </div>
@@ -13,7 +13,7 @@
             <label for="drop" class="toggle">Menu</label>
             <input type="checkbox" id="drop">
             <ul class="menu mt-2">
-                <li class="active"><a href="index.html">Главная</a></li>
+                <li class="active"><a href="{% url 'media' %}">Главная</a></li>
                 <li>
                     <!-- First Tier Drop Down -->
                     <label for="drop-2" class="toggle">Категории <span
@@ -24,7 +24,7 @@
                     <ul>
                         {% get_categories as categories %}
                         {% for category in categories %}
-                        <li><a href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
+                        <li><a href="{% url 'category_list' category.id %}">{{ category.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -52,8 +52,8 @@
 <!-- //header -->
 <!--/banner-->
 <div class="banner-info">
-    <p class="editContent" style="color:red;">лучший сайт на django 3</p>
-    <h3 class="mb-4 editContent" style="color:red;">Все о кино</h3>
+    <p class="editContent" style="color:white;">Кино - это важнейшее из искусств (с) Ленин</p>
+    <h3 class="mb-4 editContent" style="color:white;">Все о кино</h3>
     <div class="ban-buttons">
 
 
