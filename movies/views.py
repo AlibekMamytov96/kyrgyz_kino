@@ -6,7 +6,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.decorators import login_required
 
 
-
 from .models import *
 from .forms import ReviewForm, RatingForm, CreateMovieForm, UpdateMovieForm
 
