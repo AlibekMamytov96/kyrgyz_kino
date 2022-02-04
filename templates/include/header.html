@@ -5,7 +5,7 @@
         <!-- nav -->
         <nav class="py-4">
             <div id="logo">
-                <h1><a href="index.html" class="editContent"
+                <h1><a href="{% url 'media' %}" class="editContent"
                        style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: Source Sans Pro;, sans-serif;">Kyrgyz Movie</a>
                 </h1>
             </div>
@@ -13,12 +13,12 @@
             <label for="drop" class="toggle">Menu</label>
             <input type="checkbox" id="drop">
             <ul class="menu mt-2">
-                <li class="active"><a href="index.html">Главная</a></li>
+                <li class="active"><a href="{% url 'media' %}">Главная</a></li>
                 <li>
                     <!-- First Tier Drop Down -->
                     <label for="drop-2" class="toggle">Категории <span
                             class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                    <a href="#">Категории<span class="fa fa-angle-down"
+                    <a href="{% url 'media' %}">Категории<span class="fa fa-angle-down"
                                                 aria-hidden="true"></span></a>
                     <input type="checkbox" id="drop-2">
                     <ul>
@@ -52,8 +52,12 @@
 <!-- //header -->
 <!--/banner-->
 <div class="banner-info">
-    <p class="editContent" style="color:red;">лучший сайт на django 3</p>
-    <h3 class="mb-4 editContent" style="color:red;">Все о кино</h3>
+<<<<<<< HEAD
+    <p class="editContent" style="color:white;">Кино важнейшее из искусств (с) Ленин</p>
+=======
+    <p class="editContent" style="color:white;">Кино - это важнейшее из искусств (с) Ленин</p>
+>>>>>>> 50237eeed54cc94173da31ba8dee36d8230aaf3a
+    <h3 class="mb-4 editContent" style="color:white;">Все о кино</h3>
     <div class="ban-buttons">
 
 
