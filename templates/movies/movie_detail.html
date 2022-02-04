@@ -114,6 +114,11 @@
                                 </a>
                             </div>
                         {% endif %}
+                        <div>
+                                <a href="{% url 'add_to_favourites' movie.id %}"  class="btn btn-success" role="button">
+                                    Add to favourites
+                                </a>
+                        </div>
 
                     </div>
                     <div class="clearfix"></div>
@@ -131,10 +136,10 @@
                          alt="{{ image.description }}">
                 {% endfor %}
             </p>
-            <p class="editContent">
+
+        </div><p class="editContent">
                 {{ movie.description|safe }}
             </p>
-        </div>
         <hr>
         <div class="row">
             <div class="single-form-left">

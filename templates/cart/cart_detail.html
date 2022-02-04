@@ -4,7 +4,7 @@
 {% block movie %}
     <div class="left-ads-display col-lg-9">
         <div class="row">
-            {% for id,movie in request.session.cart.items %}
+            {% for movie in new %}
                 <div class="col-md-4 product-men">
                     <div class="product-shoe-info editContent text-center mt-lg-4">
                         <div class="men-thumb-item">
@@ -40,14 +40,6 @@
                                                       aria-hidden="true"></span></a>
                                 </li>
                             </ul>
-                            <div class="card-body">
-                                <a href="{% url 'item_increment' id %}" class="card-link">Plus</a>
-                                {% if not product.quantity == 1 %}
-                                    <a href="{% url 'item_decrement' id %}" class="card-link">Minus</a>
-                                {% else %}
-                                    <a href="{% url 'item_clear' id %}" class="card-link">Remove</a>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,13 +76,7 @@
         </ul>
         </nav>
     {% endif %}
-    </div>
-        <a href="{% url 'cart_clear' %}">
-        <img style="width: 100px; height: auto;" src="{% static 'plastic_bin.jpg' %}">
-        </a>
-        <a class="btn btn-danger" href="{% url 'order-create' %}">
-            Place order
-        </a>
 
 {% endblock movie %}
 
+    </div>
