@@ -36,6 +36,9 @@
                         <a href="{% url 'login' %}"
                         style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Log In</a>
                     {% else %}
+                    <a href="{% url 'favourites_list' %}"
+                           style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">Saved</i>
+                    </a>
                         <span style="color: rgb(255, 255, 255); font-weight: 700; text-transform: uppercase;">
                             {{ request.user.username }}</span>
                         <a href="{% url 'logout' %}"
@@ -53,7 +56,7 @@
 <!--/banner-->
 <div class="banner-info">
 
-    <p class="editContent" style="color:white;">Кино - это важнейшее из искусств (с) Ленин</p>
+    <p class="editContent" style="color:white;">Кино - это важнейшее из искусствo (с) Ленин</p>
 
     <h3 class="mb-4 editContent" style="color:white;">Все о кино</h3>
     <div class="ban-buttons">

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -80,6 +81,7 @@ class Movie(models.Model):
     )
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
+    favorite = models.ManyToManyField(User, related_name='favorite', blank=True, default=None)
 
     def __str__(self):
         return self.title

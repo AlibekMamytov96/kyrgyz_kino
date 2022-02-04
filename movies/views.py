@@ -1,6 +1,6 @@
 from django.db.models import Q
-from django.http import HttpResponse, request
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, request, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
@@ -153,6 +153,20 @@ class SearchMovieView(ListView):
         context = super().get_context_data(*args, **kwargs)
         context["results"] = f'q={self.request.GET.get("q")}&'
         return context
+
+@login_required()
+def add_to_favourites(request, id):
+    movie = get_object_or_404(Movie, id=id)
+    if movie.favorite.filter(id=request.user.id).exists():
+        movie.favorite.remove(request.user)
+    else:
+        movie.favorite.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+@login_required()
+def favourites_list(request):
+    new = Movie.objects.filter(favorite=request.user)
+    return render(request, 'cart/cart_detail.html', {'new': new})
 
 #
 # @login_required()
