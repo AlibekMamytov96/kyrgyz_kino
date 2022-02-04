@@ -37,17 +37,37 @@ class MovieDetailView(GenreYear, DetailView):
 
 
 class CategoryView(GenreYear, ListView):
-    model = Category
+    model = Movie
     # queryset = Movie.objects.get(category_id=id)
     template_name = 'movies/category_list.html'
     paginate_by = 2
+    context_object_name = 'movies'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-        slug = context['category_list']
-        movie = slug.values('movie')
-        movie = Movie.objects.filter(id=movie)
-        return ({'movies': movie})
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id = self.kwargs.get('pk')
+        queryset = Movie.objects.filter(id=id)
+        print(queryset)
+        print(id)
+        return queryset
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data()
+    #     print(context)
+    #     # print(self, 'asdasd')
+    #     # print(self.request.POST)
+    #     id = self.kwargs.get('id')
+    #     print(id)
+    #     # print(slug)
+    #     # movie = slug.values('movie')
+    #     # print(movie)
+    #     # print(movie, 'asddddddddd')
+    #     # print(self.request.GET, 'ASDASDASDD')
+    #     # id = self.request.POST.get('id')
+    #     # print(id)
+    #     movie = Movie.objects.filter(id=id)
+    #     print(movie)
+    #     return ({'movies': movie})
 
 
 class CategoryDetailView(GenreYear, DetailView):
@@ -142,7 +162,7 @@ class DeleteMovieView(DeleteView):
 
 
 class SearchMovieView(ListView):
-    paginate_by = 3
+    paginate_by = 2
 
     def get_queryset(self):
         return Movie.objects.filter(title__icontains=self.request.GET.get("q"))
