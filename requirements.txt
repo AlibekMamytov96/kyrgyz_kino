@@ -1,2 +1,4 @@
 Django==3.2.10
 Pillow
+python-decouple
+django-shopping-cart
