@@ -18,5 +18,4 @@ class RegisterView(CreateView):
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('media')
 
-
 # Create your views here.
