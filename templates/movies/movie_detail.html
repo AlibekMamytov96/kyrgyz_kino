@@ -54,7 +54,7 @@
                                     </span>
                     </li>
                     <li>
-                        <span><b>Премьера в мире:</b> {{ movie.world_premiere }}</span>
+                        <span><b>Премьера в мире:</b> {{ movie.category }}</span>
                     </li>
                     <li>
                         <span><b>Бюджет:</b> ${{ movie.budget }}</span></li>
@@ -119,7 +119,11 @@
                                     Add to favourites
                                 </a>
                         </div>
-
+                        <form action="{% url 'like_movie' movie.id %}" method="post">{%  csrf_token %}
+                                <button type="submit" class="btn btn-danger" value="{{ movie.id }}" name="movie_id">
+                                    Like
+                                </button><p>{{ total_likes }} Likes</p>
+                        </form>
                     </div>
                     <div class="clearfix"></div>
                 </div>

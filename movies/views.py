@@ -31,28 +31,37 @@ class MovieDetailView(GenreYear, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        stuff = get_object_or_404(Movie, url=self.kwargs['slug'])
+        total_likes = stuff.get_total_likes()
         context["star_form"] = RatingForm()
+        context['total_likes'] = total_likes
         return context
 
 
-class CategoryView(GenreYear, ListView):
-    model = Movie
-    # queryset = Movie.objects.get(category_id=id)
+class CategoryView(GenreYear, DetailView):
+    model = Category
     template_name = 'movies/category_list.html'
     paginate_by = 2
     context_object_name = 'movies'
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        id = self.kwargs.get('pk')
-        queryset = Movie.objects.filter(id=id)
-        print(queryset)
-        print(id)
-        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+        # movie =
+        # print(movie)
+        context['movie_list'] = get_object_or_404(Movie, category=self.kwargs['pk'])
+        return context
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     id = self.kwargs.get('pk')
+    #     queryset = Movie.objects.filter(id=id)
+    #     print(queryset)
+    #     print(id)
+    #     return queryset
 
 
-
-class CategoryDetailView(GenreYear, DetailView):
+class CategoryDetailView(DetailView):
     model = Category
     template_name = 'movies/category_detail.html'
     slug_field = 'url'
@@ -138,7 +147,7 @@ class DeleteMovieView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        slug = self.object.category.slug
+        slug = self.object.category.id
         self.object.delete()
         return redirect('/', slug)
 
@@ -168,46 +177,14 @@ def favourites_list(request):
     new = Movie.objects.filter(favorite=request.user)
     return render(request, 'cart/cart_detail.html', {'new': new})
 
-#
-# @login_required()
-# def cart_add(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.add(product=movie)
-#     return redirect("media")
-#
-#
-# @login_required()
-# def item_clear(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.remove(movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def item_increment(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.add(product=movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def item_decrement(request, id):
-#     cart = Cart(request)
-#     movie = Movie.objects.get(id=id)
-#     cart.decrement(product=movie)
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def cart_clear(request):
-#     cart = Cart(request)
-#     cart.clear()
-#     return redirect("cart_detail")
-#
-#
-# @login_required()
-# def cart_detail(request):
-#     return render(request, 'cart/cart_detail.html')
+@login_required()
+def like_movie(request, pk):
+    movie = get_object_or_404(Movie, id=request.POST.get('movie_id'))
+    if not movie.likes.filter(id=request.user.id).exists():
+        movie.likes.add(request.user)
+    else:
+        movie.likes.remove(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+

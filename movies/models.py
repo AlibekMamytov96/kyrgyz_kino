@@ -17,7 +17,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={"slug": self.id})
+        return reverse('category_list', kwargs={"slug": self.pk})
 
     class Meta:
         verbose_name = "Категория"
@@ -82,6 +82,10 @@ class Movie(models.Model):
     url = models.SlugField(max_length=130, unique=True)
     draft = models.BooleanField("Черновик", default=False)
     favorite = models.ManyToManyField(User, related_name='favorite', blank=True, default=None)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
+
+    def get_total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
